@@ -1,0 +1,161 @@
+/* GENERAL */
+#contenedor_principal {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.div_clear_both {
+    clear: both;
+}
+
+/* NAV */
+#nav_principal {
+    width: 1000px;
+    margin: 0 auto;
+    background: #00796b;
+}
+
+#nav_principal ul {
+    list-style: none;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#nav_principal li {
+    float: left;
+    margin-right: 20px;
+}
+
+#nav_principal a {
+    color: white;
+    font-weight: bold;
+}
+
+/* HEADER */
+#header_principal {
+    width: 100%;
+    height: 180px;
+    background: #e0f2f1;
+    margin: 20px 0;
+}
+
+#logo {
+    width: 25%;
+    height: 100%;
+    float: left;
+    background: #80cbc4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#formulario_header {
+    width: 70%;
+    float: right;
+    padding: 30px;
+}
+
+#formulario_header input {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+#formulario_header button {
+    padding: 8px 15px;
+    background: #00796b;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* GALERÍA */
+#galeria {
+    width: 100%;
+    overflow: hidden;
+}
+
+#galeria figure {
+    width: 18%;
+    height: 140px;
+    background: #cfd8dc;
+    float: left;
+    margin: 1%;
+    text-align: center;
+    padding: 10px;
+}
+
+#galeria img {
+    width: 100%;
+    height: 100px;
+    background: gray;
+}
+
+/* INFO PRINCIPAL */
+#info_principal {
+    text-align: center;
+    padding: 20px;
+    background: #eeeeee;
+    margin: 20px 0;
+}
+
+/* COLUMNAS */
+.columna {
+    width: 31%;
+    margin-right: 3%;
+    float: left;
+    background: #f1f8e9;
+    padding: 15px;
+}
+
+.columna:last-child {
+    margin-right: 0;
+}
+
+.columna img {
+    width: 100%;
+    height: 200px;
+    background: gray;
+}
+
+/* ASIDE */
+#aside_flotante {
+    width: 120px;
+    height: 200px;
+    background: #b0bec5;
+    float: right;
+    text-align: center;
+    padding: 20px;
+    margin-top: -250px;
+}
+
+/* FOOTER */
+#footer_principal {
+    width: 1000px;
+    margin: 20px auto;
+    background: #004d40;
+    color: white;
+    padding: 20px;
+}
+
+.footer_logo {
+    width: 25%;
+    float: left;
+    background: #00695c;
+    text-align: center;
+    padding: 30px;
+}
+
+.footer_info {
+    width: 70%;
+    float: right;
+}
+
+.footer_copy {
+    border-top: 1px solid #80cbc4;
+    margin-top: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
