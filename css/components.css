@@ -1,0 +1,58 @@
+button, .btn-primary {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.candidate-access-block {
+  padding: 40px 0;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+.access-buttons-group {
+    display: block; 
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.utility-links {
+    margin-bottom: 10px;
+}
+
+
+.btn-primary {
+    background-color: #42f0bb; 
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    background-color: rgb(105, 240, 195);
+    color: #021309;
+    border: 2px solid #013512;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.foto-perfil{
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+}

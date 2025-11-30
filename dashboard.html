@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Selecto</title>
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+  
+  <header class="site-header">
+    <div class="logo">Selecto</div>
+
+    <nav class="nav-menu" id="menu">
+      <ul>
+        <li><a href="modelo_caja.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="candidatos.html">Candidatos</a></li>
+        <li><a href="empresas.html">Empresas</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu-toggle" id="toggle">☰</div>
+  </header>
+
+  
+  
+
+  
+  <footer<main class="dashboard-content" role="main">
+    <h1 class="page-title">Panel de Administración de Selecto</h1>
+    
+    <section class="alert-banner is-danger" role="alert">
+        <p>🚨 ¡Atención! Hay *5 Vacantes Pendientes de Aprobación* y *2 Reportes de Abuso* sin revisar.</p>
+        <a href="admin_vacantes.html" class="btn-small">Revisar Vacantes</a>
+    </section>
+
+    <section class="stats-grid">
+        <div class="stat-widget primary-stat">
+            <span class="stat-icon">👥</span>
+            <span class="stat-value">15,480</span>
+            <span class="stat-label">Total Candidatos</span>
+        </div>
+        <div class="stat-widget secondary-stat">
+            <span class="stat-icon">🏢</span>
+            <span class="stat-value">582</span>
+            <span class="stat-label">Total Empresas</span>
+        </div>
+        <div class="stat-widget tertiary-stat">
+            <span class="stat-icon">💼</span>
+            <span class="stat-value">1,204</span>
+            <span class="stat-label">Vacantes Activas</span>
+        </div>
+        <div class="stat-widget danger-stat">
+            <span class="stat-icon">❌</span>
+            <span class="stat-value">7</span>
+            <span class="stat-label">Alertas Críticas</span>
+        </div>
+    </section>
+    
+    <section class="admin-tasks-section">
+        <h2>Tareas de Moderación Urgente</h2>
+        <div class="activity-table-container">
+            <table class="activity-table">
+      <tbody>
+                    <tr>
+                        <td>V-3490</td>
+                        <td>Aprobación Vacante</td>
+                        <td>Diseñador UX Senior - PENDIENTE</td>
+                        <td>Hoy, 09:30 AM</td>
+                        <td><a href="#" class="btn-action">Aprobar / Rechazar</a></td>
+                    </tr>
+                    <tr>
+                        <td>R-0045</td>
+                        <td>Reporte de Abuso</td>
+                        <td>Cuenta Empresa: "XYZ Inc." (Oferta engañosa)</td>
+                        <td>Ayer, 18:15 PM</td>
+                        <td><a href="#" class="btn-action">Revisar Reporte</a></td>
+                    </tr>
+      </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <section class="analytics-chart-section">
+        <h2>Crecimiento Mensual de Usuarios</h2>
+        <div class="chart-placeholder">
+            
+        </div>
+    </section>
+</main> class="site-footer">
+    <div class="footer-content">
+      <p>© 2025 Selecto | Todos los derechos reservados</p>
+      <p>
+        <a href="politicas.html">Políticas</a> | 
+        <a href="terminos.html">Términos</a> |
+        <a href="soporte.html">Soporte</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>
