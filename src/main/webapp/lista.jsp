@@ -37,11 +37,7 @@
                             <td>
                                 <a href="editar?id=<%= c[0] %>" class="btn btn-sm btn-warning">Editar</a>
 
-                                <a href="${pageContext.request.contextPath}/EliminarServlet?id=<%= c[0] %>"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('¿Estás segura de eliminar este candidato?')">
-                                   Borrar
-                                </a>
+                                
 
                                 </a>
                             </td>
