@@ -90,6 +90,12 @@
 
             </form>
 
+            <br><br>
+
+            <a href="login.jsp" class="btn-login">
+                Iniciar sesión como administrador
+            </a>
+
         </div>
 
     </div>
