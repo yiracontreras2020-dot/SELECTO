@@ -2,48 +2,105 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Selecto</title>
+    <title>Selecto - Sistema de Selección de Personal</title>
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 
-<div class="contenedor">
+<header class="navbar">
 
-    <div class="login">
+    <div class="logo">
+        <h2>SELECTO</h2>
+    </div>
 
-        <h1>SELECTO</h1>
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Nosotros</a>
+        <a href="#">Servicios</a>
+        <a href="#">Contacto</a>
+    </nav>
 
-        <p>Sistema de selección de personal</p>
+</header>
 
-        <form action="registro" method="post">
+<section class="principal">
 
-            <input type="text"
-                   name="nombre"
-                   placeholder="Nombre completo"
-                   required>
+    <div class="informacion">
 
-            <input type="email"
-                   name="correo"
-                   placeholder="Correo electrónico"
-                   required>
-            <input type="password"
-                   name="password"
-                   placeholder="Contraseña"
-                   required>
+        <h1>Bienvenido a <span>SELECTO</span></h1>
 
-            <button type="submit">
-                Registrar
-            </button>
+        <p>
+            SELECTO es una plataforma desarrollada para facilitar el proceso de
+            selección de personal entre empresas y candidatos.
+        </p>
 
-        </form>
+        <h2>Nuestra misión</h2>
+
+        <p>
+            Ayudar a las empresas a encontrar el mejor talento y permitir que
+            los candidatos administren su información de forma rápida,
+            organizada y segura.
+        </p>
+
+        <h2>¿Qué puedes hacer?</h2>
+
+        <ul>
+            <li>✅ Registrar candidatos.</li>
+            <li>✅ Consultar información.</li>
+            <li>✅ Actualizar datos.</li>
+            <li>✅ Eliminar registros.</li>
+            <li>✅ Gestionar procesos de selección.</li>
+        </ul>
 
     </div>
 
-</div>
+    <div class="formulario">
+
+        <div class="card">
+
+            <h2>Registro de Candidatos</h2>
+
+            <form action="registro" method="post">
+
+                <input
+                        type="text"
+                        name="nombre"
+                        placeholder="Nombre completo"
+                        required>
+
+                <input
+                        type="email"
+                        name="correo"
+                        placeholder="Correo electrónico"
+                        required>
+
+                <input
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        required>
+
+                <button type="submit">
+                    Registrar
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p>© 2026 SELECTO | Sistema de Selección de Personal</p>
+
+</footer>
 
 <script src="js/script.js"></script>
 
