@@ -33,36 +33,29 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
 
-                response.sendRedirect("ListarCandidatos");
+                request.getSession().setAttribute("usuario", usuario);
+
+                response.sendRedirect("dashboard.jsp");
 
             } else {
 
                 response.setContentType("text/html;charset=UTF-8");
 
                 response.getWriter().println("""
-                        <html>
-                        <head>
-                            <title>Error</title>
-                        </head>
-                        <body style='font-family:Arial;text-align:center;margin-top:80px;'>
-
-                        <h2>Usuario o contraseña incorrectos.</h2>
-
-                        <br>
-
-                        <a href='login.jsp'>Volver al inicio de sesión</a>
-
-                        </body>
-                        </html>
-                        """);
+                     <html>
+                    <head>
+                        <title>Error</title>
+                    </head>
+                    <body>
+                        <h2>Usuario o contraseña incorrectos</h2>
+                        <a href="login.jsp">Volver</a>
+                    </body>
+                    </html>
+                    """);
             }
 
         } catch (Exception e) {
-
             throw new ServletException(e);
-
         }
-
     }
-
 }

@@ -14,7 +14,11 @@
 
 </head>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <body>
+
+<%@ include file="menu.jsp" %>
 
 <header class="navbar">
 
@@ -62,7 +66,7 @@
             <td>
 
                 <a class="btn"
-                   href="PostularServlet?candidato_id=1&vacante_id=<%= v[0] %>">
+                   href="PostularServlet?candidato_id=16&vacante_id=<%= v[0] %>">
                     Postularme
                 </a>
 
@@ -78,6 +82,10 @@
     </table>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<%@ include file="footer.jsp" %>
 
 </body>
 

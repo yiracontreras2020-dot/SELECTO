@@ -4,6 +4,8 @@
 <html lang="es">
 
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Registro exitoso | Selecto</title>
 
@@ -17,6 +19,9 @@
 }
 
 body{
+
+<%@ include file="menu.jsp" %>
+
     background:linear-gradient(135deg,#2563eb,#60a5fa);
     height:100vh;
     display:flex;
@@ -103,6 +108,10 @@ a:hover{
 <a class="nuevo" href="index.jsp">Registrar otro candidato</a>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<%@ include file="footer.jsp" %>
 
 </body>
 </html>

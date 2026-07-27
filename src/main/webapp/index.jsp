@@ -4,6 +4,8 @@
 <html lang="es">
 
 <head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Selecto - Sistema de Selección de Personal</title>
 
@@ -109,6 +111,9 @@
 </footer>
 
 <script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<%@ include file="footer.jsp" %>
 
 </body>
 </html>

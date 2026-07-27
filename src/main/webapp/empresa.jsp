@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <body>
+
+<%@ include file="menu.jsp" %>
 
 <div class="contenedor">
 
@@ -60,6 +64,10 @@
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<%@ include file="footer.jsp" %>
 
 </body>
 </html>

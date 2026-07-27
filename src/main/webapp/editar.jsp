@@ -8,7 +8,11 @@
 
 </head>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <body class="bg-light">
+
+<%@ include file="menu.jsp" %>
 
 <div class="container mt-5">
 
@@ -54,6 +58,10 @@
     </form>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<%@ include file="footer.jsp" %>
 
 </body>
 </html>
