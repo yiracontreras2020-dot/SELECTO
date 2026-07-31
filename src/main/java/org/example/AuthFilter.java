@@ -14,12 +14,33 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {
         "/dashboard",
         "/dashboard.jsp",
+
+        // Candidatos
         "/ListarCandidatos",
+        "/RegistrarServlet",
+        "/EditarServlet",
+        "/EliminarServlet",
+
+        // Empresas
         "/ListarEmpresas",
+        "/RegistrarEmpresaServlet",
+        "/EditarEmpresaServlet",
+        "/EliminarEmpresaServlet",
+        "/PanelEmpresa",
+
+        // Vacantes
         "/ListarVacantes",
-        "/listarVacantesDisponibles",
+        "/RegistrarVacanteServlet",
+        "/EditarVacanteServlet",
+        "/EliminarVacanteServlet",
+        "/ListarVacantesDisponibles",
+
+        // Postulaciones
+        "/PostularServlet",
         "/ListarPostulaciones",
-        "/PanelEmpresa"
+
+        // Cerrar sesión
+        "/logout"
 })
 public class AuthFilter extends HttpFilter implements Filter {
 
@@ -28,6 +49,8 @@ public class AuthFilter extends HttpFilter implements Filter {
                             HttpServletResponse response,
                             FilterChain chain)
             throws IOException, ServletException {
+
+        System.out.println(">>> AuthFilter ejecutándose...");
 
         HttpSession session = request.getSession(false);
 

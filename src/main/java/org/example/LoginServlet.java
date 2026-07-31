@@ -33,9 +33,18 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
 
-                request.getSession().setAttribute("usuario", usuario);
+                String rol = rs.getString("rol");
 
-                response.sendRedirect("dashboard.jsp ");
+                request.getSession().setAttribute("usuario", usuario);
+                request.getSession().setAttribute("rol", rol);
+
+                if ("ADMIN".equals(rol)) {
+                    response.sendRedirect("dashboard.jsp");
+                } else if ("EMPRESA".equals(rol)) {
+                    response.sendRedirect("panelEmpresa.jsp");
+                } else {
+                    response.sendRedirect("vacantesDisponibles.jsp");
+                }
 
             } else {
 
