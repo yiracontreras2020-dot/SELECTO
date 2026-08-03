@@ -21,6 +21,45 @@
 
 <header class="navbar">
 
+    <h2>Nueva Vacante</h2>
+
+    <form action="RegistrarVacanteServlet" method="post">
+
+        <div class="mb-3">
+            <label>Título</label>
+            <input type="text" name="titulo" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Descripción</label>
+            <textarea name="descripcion" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Salario</label>
+            <input type="number" name="salario" class="form-control" required>
+        </div>
+
+        <input type="hidden"
+               name="empresa_id"
+               value="<%= session.getAttribute("empresa_id") %>">
+
+        <div class="mb-3">
+            <label>Fecha</label>
+            <input type="date"
+                   name="fecha_publicacion"
+                   class="form-control"
+                   required>
+        </div>
+
+        <input type="hidden" name="estado" value="ACTIVA">
+
+        <button class="btn btn-success">
+            Registrar Vacante
+        </button>
+
+    </form>
+
     <h2>SELECTO</h2>
 
     <nav>

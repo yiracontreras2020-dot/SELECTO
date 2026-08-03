@@ -34,9 +34,11 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
 
                 String rol = rs.getString("rol");
+                int empresaId = rs.getInt("empresa_id");
 
                 request.getSession().setAttribute("usuario", usuario);
                 request.getSession().setAttribute("rol", rol);
+                request.getSession().setAttribute("empresa_id", empresaId);
 
                 if ("ADMIN".equals(rol)) {
                     response.sendRedirect("dashboard.jsp");
@@ -51,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
 
                 response.getWriter().println("""
-                     <html>
+                    <html>
                     <head>
                         <title>Error</title>
                     </head>
