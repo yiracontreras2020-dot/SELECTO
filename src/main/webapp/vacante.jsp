@@ -9,96 +9,164 @@
 
     <title>Registrar Vacante - SELECTO</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css">
 
 </head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <body>
 
 <%@ include file="menu.jsp" %>
 
-<div class="contenedor">
 
-    <div class="login">
+<div class="container py-5">
 
-        <h1>Registrar Vacante</h1>
+    <div class="row justify-content-center">
 
-        <form action="RegistrarVacanteServlet" method="post">
+        <div class="col-md-8 col-lg-7">
 
-            <%@ page import="java.util.List" %>
+            <div class="card shadow border-0">
 
-            <select name="empresa_id" required>
+                <div class="card-header bg-primary text-white text-center">
 
-                <option value="">Seleccione una empresa</option>
+                    <h2 class="mb-0">
+                        💼 Registrar Nueva Vacante
+                    </h2>
 
-                <%
-                    List<String[]> empresas =
-                            (List<String[]>) request.getAttribute("empresas");
+                </div>
 
-                    if (empresas != null) {
 
-                        for (String[] empresa : empresas) {
-                %>
+                <div class="card-body p-4">
 
-                <option value="<%= empresa[0] %>">
-                    <%= empresa[1] %>
-                </option>
+                    <form action="RegistrarVacanteServlet" method="post">
 
-                <%
-                        }
-                    }
-                %>
 
-            </select>
+                        <!--
+                            El ID de la empresa se obtiene
+                            automáticamente de la sesión.
+                        -->
 
-            <textarea
-                    name="descripcion"
-                    placeholder="Descripción"
-                    required></textarea>
+                        <input type="hidden"
+                               name="empresa_id"
+                               value="<%= session.getAttribute("empresa_id") %>">
 
-            <input
-                    type="number"
-                    step="0.01"
-                    name="salario"
-                    placeholder="Salario">
 
-            <input
-                    type="number"
-                    name="empresa_id"
-                    placeholder="ID de la empresa"
-                    required>
+                        <!-- TÍTULO -->
 
-            <input
-                    type="date"
-                    name="fecha_publicacion">
+                        <div class="mb-3">
 
-            <select name="estado">
+                            <label class="form-label">
+                                Título de la vacante
+                            </label>
 
-                <option value="Activa">Activa</option>
+                            <input type="text"
+                                   name="titulo"
+                                   class="form-control"
+                                   placeholder="Ej: Desarrollador Java"
+                                   required>
 
-                <option value="Cerrada">Cerrada</option>
+                        </div>
 
-            </select>
 
-            <button type="submit">
-                Registrar Vacante
-            </button>
+                        <!-- DESCRIPCIÓN -->
 
-        </form>
+                        <div class="mb-3">
 
-        <br>
+                            <label class="form-label">
+                                Descripción
+                            </label>
 
-        <a href="NuevaVacanteServlet">
-            Registrar Vacante
-        </a>
+                            <textarea
+                                    name="descripcion"
+                                    class="form-control"
+                                    rows="4"
+                                    placeholder="Describe las funciones y requisitos del cargo"
+                                    required></textarea>
+
+                        </div>
+
+
+                        <!-- SALARIO -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Salario
+                            </label>
+
+                            <input type="number"
+                                   name="salario"
+                                   class="form-control"
+                                   placeholder="Ej: 2500000"
+                                   step="0.01"
+                                   required>
+
+                        </div>
+
+
+                        <!-- FECHA -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Fecha de publicación
+                            </label>
+
+                            <input type="date"
+                                   name="fecha_publicacion"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+
+                        <!-- ESTADO -->
+
+                        <input type="hidden"
+                               name="estado"
+                               value="ACTIVA">
+
+
+                        <!-- BOTONES -->
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a href="PanelEmpresa"
+                               class="btn btn-secondary">
+
+                                ← Volver
+
+                            </a>
+
+
+                            <button type="submit"
+                                    class="btn btn-success">
+
+                                ✅ Registrar Vacante
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
+
 
 <%@ include file="footer.jsp" %>
 

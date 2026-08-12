@@ -95,7 +95,7 @@
             </a>
 
             <a class="btn postular"
-               href="PostularServlet?candidato_id=1&vacante_id=<%= v[0] %>">
+               href="PostularServlet?vacante_id=<%= v[0] %>">
                 Postularme
             </a>
 
