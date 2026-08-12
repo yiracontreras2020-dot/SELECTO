@@ -49,11 +49,7 @@
                     value="<%= request.getAttribute("salario") %>"
                     required>
 
-            <input
-                    type="number"
-                    name="empresa_id"
-                    value="<%= request.getAttribute("empresa_id") %>"
-                    required>
+
 
             <input
                     type="date"
