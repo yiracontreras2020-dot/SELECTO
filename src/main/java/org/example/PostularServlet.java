@@ -10,165 +10,83 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.time.LocalDate;
 
 @WebServlet("/PostularServlet")
 public class PostularServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Verificar sesión
         HttpSession session = request.getSession(false);
 
-        if (session == null ||
-                session.getAttribute("usuario") == null) {
-
+        // Verificar que exista una sesión
+        if (session == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        String rol = (String) session.getAttribute("rol");
+        // Obtener candidato de la sesión
+        Object candidatoObj = session.getAttribute("candidato_id");
 
-        // Solo los candidatos pueden postularse
-        if (!"CANDIDATO".equals(rol)) {
-
-            response.sendError(
-                    HttpServletResponse.SC_FORBIDDEN,
-                    "Solo los candidatos pueden postularse a una vacante."
-            );
-
+        // Verificar que sea un candidato
+        if (candidatoObj == null) {
+            response.sendRedirect("login.jsp");
             return;
         }
 
-        // Obtener usuario de la sesión
-        String usuario = (String) session.getAttribute("usuario");
+        int candidatoId = (Integer) candidatoObj;
 
-        // Obtener vacante
         String vacanteId = request.getParameter("vacante_id");
 
         if (vacanteId == null || vacanteId.isEmpty()) {
-
-            response.sendError(
-                    HttpServletResponse.SC_BAD_REQUEST,
-                    "No se recibió el ID de la vacante."
-            );
-
+            response.sendRedirect("ListarVacantes");
             return;
         }
 
         try (Connection con = ConexionBD.conectar()) {
 
-            // ==========================================
-            // BUSCAR EL CANDIDATO QUE INICIÓ SESIÓN
-            // ==========================================
-
-            String sqlCandidato =
-                    "SELECT id FROM candidatos WHERE correo = ?";
-
-            int candidatoId;
-
-            try (PreparedStatement ps =
-                         con.prepareStatement(sqlCandidato)) {
-
-                ps.setString(1, usuario);
-
-                try (ResultSet rs = ps.executeQuery()) {
-
-                    if (!rs.next()) {
-
-                        response.sendError(
-                                HttpServletResponse.SC_NOT_FOUND,
-                                "No se encontró el candidato."
-                        );
-
-                        return;
-                    }
-
-                    candidatoId = rs.getInt("id");
-                }
-            }
-
-
-            // ==========================================
-            // EVITAR POSTULARSE DOS VECES
-            // ==========================================
-
-            String sqlExiste =
+            // Evitar que el mismo candidato se postule dos veces
+            String verificar =
                     "SELECT id FROM postulaciones " +
                             "WHERE candidato_id = ? AND vacante_id = ?";
 
-            try (PreparedStatement ps =
-                         con.prepareStatement(sqlExiste)) {
+            PreparedStatement psVerificar =
+                    con.prepareStatement(verificar);
 
-                ps.setInt(1, candidatoId);
-                ps.setInt(2, Integer.parseInt(vacanteId));
+            psVerificar.setInt(1, candidatoId);
+            psVerificar.setInt(2, Integer.parseInt(vacanteId));
 
-                try (ResultSet rs = ps.executeQuery()) {
+            var rs = psVerificar.executeQuery();
 
-                    if (rs.next()) {
+            if (rs.next()) {
 
-                        response.setContentType(
-                                "text/html;charset=UTF-8"
-                        );
-
-                        response.getWriter().println("""
-                                <!DOCTYPE html>
-                                <html lang="es">
-                                <head>
-                                    <meta charset="UTF-8">
-                                    <title>SELECTO</title>
-                                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-                                          rel="stylesheet">
-                                </head>
-                                <body>
-                                    <div class="container mt-5">
-                                        <div class="alert alert-warning text-center">
-                                            <h4>⚠️ Ya te postulaste a esta vacante.</h4>
-                                            <a href="ListarVacantes"
-                                               class="btn btn-primary mt-3">
-                                                Volver a vacantes
-                                            </a>
-                                        </div>
-                                    </div>
-                                </body>
-                                </html>
-                                """);
-
-                        return;
-                    }
-                }
+                response.sendRedirect("ListarVacantes?mensaje=yaPostulado");
+                return;
             }
 
-
-            // ==========================================
-            // REGISTRAR POSTULACIÓN
-            // ==========================================
-
+            // Registrar la postulación
             String sql =
                     "INSERT INTO postulaciones " +
                             "(candidato_id, vacante_id, fecha_postulacion) " +
                             "VALUES (?, ?, ?)";
 
-            try (PreparedStatement ps =
-                         con.prepareStatement(sql)) {
+            PreparedStatement ps =
+                    con.prepareStatement(sql);
 
-                ps.setInt(1, candidatoId);
-                ps.setInt(2, Integer.parseInt(vacanteId));
-                ps.setDate(
-                        3,
-                        java.sql.Date.valueOf(LocalDate.now())
-                );
+            ps.setInt(1, candidatoId);
+            ps.setInt(2, Integer.parseInt(vacanteId));
+            ps.setDate(
+                    3,
+                    java.sql.Date.valueOf(LocalDate.now())
+            );
 
-                ps.executeUpdate();
-            }
+            ps.executeUpdate();
 
-
-            // Volver al listado
-            response.sendRedirect("ListarVacantes");
+            response.sendRedirect(
+                    "ListarVacantes?mensaje=postulacionExitosa"
+            );
 
         } catch (Exception e) {
 

@@ -2,7 +2,9 @@ package org.example;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,73 +20,17 @@ public class ListarPostulacionesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-
-        // Verificar que haya sesión iniciada
-        if (session == null || session.getAttribute("usuario") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        String usuario = (String) session.getAttribute("usuario");
-        String rol = (String) session.getAttribute("rol");
-
         List<String[]> postulaciones = new ArrayList<>();
 
         try (Connection con = ConexionBD.conectar()) {
 
-            String sql;
-
-            /*
-             * ADMIN:
-             * Puede ver todas las postulaciones.
-             */
-            if ("ADMIN".equals(rol)) {
-
-                sql = """
-                        SELECT p.id, c.nombre, c.correo, v.titulo
-                        FROM postulaciones p
-                        INNER JOIN candidatos c ON p.candidato_id = c.id
-                        INNER JOIN vacantes v ON p.vacante_id = v.id
-                        """;
-
-                /*
-                 * CANDIDATO:
-                 * Solo puede ver sus propias postulaciones.
-                 *
-                 * Se compara el usuario de la sesión
-                 * con el correo del candidato.
-                 */
-            } else if ("CANDIDATO".equals(rol)) {
-
-                sql = """
-                        SELECT p.id, c.nombre, c.correo, v.titulo
-                        FROM postulaciones p
-                        INNER JOIN candidatos c ON p.candidato_id = c.id
-                        INNER JOIN vacantes v ON p.vacante_id = v.id
-                        WHERE c.correo = ?
-                        """;
-
-                /*
-                 * EMPRESA:
-                 * Por ahora no le mostramos las postulaciones desde
-                 * este servlet.
-                 */
-            } else {
-
-                response.sendError(
-                        HttpServletResponse.SC_FORBIDDEN,
-                        "No tienes permisos para consultar las postulaciones."
-                );
-                return;
-            }
+            String sql =
+                    "SELECT p.id, c.nombre, c.correo, v.titulo " +
+                            "FROM postulaciones p " +
+                            "INNER JOIN candidatos c ON p.candidato_id = c.id " +
+                            "INNER JOIN vacantes v ON p.vacante_id = v.id";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
-            // Solo el candidato necesita parámetro
-            if ("CANDIDATO".equals(rol)) {
-                ps.setString(1, usuario);
-            }
 
             ResultSet rs = ps.executeQuery();
 

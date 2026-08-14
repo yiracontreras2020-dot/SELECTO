@@ -7,10 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
 
 @WebServlet("/registro")
 public class RegistroServlet extends HttpServlet {
@@ -19,52 +18,59 @@ public class RegistroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Recoger datos del formulario
         String nombre = request.getParameter("nombre");
         String correo = request.getParameter("correo");
         String password = request.getParameter("password");
 
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
         try (Connection con = ConexionBD.conectar()) {
 
-            if (con != null) {
+            con.setAutoCommit(false);
 
-                String sql = "INSERT INTO candidatos (nombre, correo, password) VALUES (?, ?, ?)";
+            // 1. Registrar candidato
+            String sqlCandidato =
+                    "INSERT INTO candidatos (nombre, correo, password) VALUES (?, ?, ?)";
 
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, nombre);
-                ps.setString(2, correo);
-                ps.setString(3, password);
+            PreparedStatement psCandidato =
+                    con.prepareStatement(sqlCandidato, PreparedStatement.RETURN_GENERATED_KEYS);
 
-                int filasInsercion = ps.executeUpdate();
+            psCandidato.setString(1, nombre);
+            psCandidato.setString(2, correo);
+            psCandidato.setString(3, password);
 
-                if (filasInsercion > 0) {
+            psCandidato.executeUpdate();
 
-                    request.setAttribute("nombre", nombre);
-                    request.setAttribute("correo", correo);
+            ResultSet generatedKeys = psCandidato.getGeneratedKeys();
 
-                    request.getRequestDispatcher("registroExitoso.jsp")
-                            .forward(request, response);
+            int candidatoId;
 
-                } else {
-
-                    out.println("<h2>No fue posible registrar el candidato.</h2>");
-
-                }
-
+            if (generatedKeys.next()) {
+                candidatoId = generatedKeys.getInt(1);
             } else {
-
-                out.println("<h2>Error: No se pudo conectar a la base de datos.</h2>");
-
+                throw new ServletException("No se pudo obtener el ID del candidato.");
             }
 
-        } catch (SQLException e) {
+            // 2. Crear usuario para permitir el inicio de sesión
+            String sqlUsuario =
+                    "INSERT INTO usuarios (usuario, password, rol, candidato_id) " +
+                            "VALUES (?, ?, 'CANDIDATO', ?)";
 
-            out.println("<h2>Error al registrar: " + e.getMessage() + "</h2>");
-            e.printStackTrace();
+            PreparedStatement psUsuario =
+                    con.prepareStatement(sqlUsuario);
 
+            // El correo será el usuario para iniciar sesión
+            psUsuario.setString(1, correo);
+            psUsuario.setString(2, password);
+            psUsuario.setInt(3, candidatoId);
+
+            psUsuario.executeUpdate();
+
+            con.commit();
+
+            response.sendRedirect("login.jsp");
+
+        } catch (Exception e) {
+
+            throw new ServletException(e);
         }
     }
 }

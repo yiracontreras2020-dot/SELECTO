@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,9 +24,13 @@ public class LoginServlet extends HttpServlet {
 
         try (Connection con = ConexionBD.conectar()) {
 
-            String sql = "SELECT * FROM usuarios WHERE usuario=? AND password=?";
+            String sql =
+                    "SELECT id, usuario, password, rol, empresa_id, candidato_id " +
+                            "FROM usuarios " +
+                            "WHERE usuario = ? AND password = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
+
             ps.setString(1, usuario);
             ps.setString(2, password);
 
@@ -34,18 +39,47 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
 
                 String rol = rs.getString("rol");
-                int empresaId = rs.getInt("empresa_id");
 
-                request.getSession().setAttribute("usuario", usuario);
-                request.getSession().setAttribute("rol", rol);
-                request.getSession().setAttribute("empresa_id", empresaId);
+                HttpSession session = request.getSession();
 
-                if ("ADMIN".equals(rol)) {
-                    response.sendRedirect("dashboard.jsp");
-                } else if ("EMPRESA".equals(rol)) {
+                session.setAttribute("usuario", rs.getString("usuario"));
+                session.setAttribute("rol", rol);
+
+                // =========================
+                // EMPRESA
+                // =========================
+
+                if ("EMPRESA".equalsIgnoreCase(rol)) {
+
+                    int empresaId = rs.getInt("empresa_id");
+
+                    session.setAttribute("empresa_id", empresaId);
+
                     response.sendRedirect("panelEmpresa.jsp");
+
+                    // =========================
+                    // CANDIDATO
+                    // =========================
+
+                } else if ("CANDIDATO".equalsIgnoreCase(rol)) {
+
+                    int candidatoId = rs.getInt("candidato_id");
+
+                    session.setAttribute("candidato_id", candidatoId);
+
+                    response.sendRedirect("ListarVacantes");
+
+                    // =========================
+                    // ADMINISTRADOR
+                    // =========================
+
+                } else if ("ADMIN".equalsIgnoreCase(rol)) {
+
+                    response.sendRedirect("dashboard.jsp");
+
                 } else {
-                    response.sendRedirect("vacantesDisponibles.jsp");
+
+                    response.sendRedirect("login.jsp");
                 }
 
             } else {
@@ -55,17 +89,25 @@ public class LoginServlet extends HttpServlet {
                 response.getWriter().println("""
                     <html>
                     <head>
-                        <title>Error</title>
+                        <meta charset="UTF-8">
+                        <title>Error de inicio de sesión</title>
                     </head>
+
                     <body>
+
                         <h2>Usuario o contraseña incorrectos</h2>
-                        <a href="login.jsp">Volver</a>
+
+                        <a href="login.jsp">
+                            Volver al inicio de sesión
+                        </a>
+
                     </body>
                     </html>
                     """);
             }
 
         } catch (Exception e) {
+
             throw new ServletException(e);
         }
     }
