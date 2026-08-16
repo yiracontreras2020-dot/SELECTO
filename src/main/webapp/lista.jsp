@@ -8,252 +8,178 @@
 
     <meta charset="UTF-8">
 
-    <title>Panel de Administración - SELECTO</title>
+    <title>Candidatos - SELECTO</title>
 
     <link rel="stylesheet" href="css/styles.css">
 
-    <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
-
-        body{
-            background:#eef5ff;
-        }
-
-        .navbar{
-            width:100%;
-            background:#0d47a1;
-            color:white;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            padding:18px 50px;
-        }
-
-        .navbar h2{
-            font-size:30px;
-        }
-
-        .navbar nav a{
-            color:white;
-            text-decoration:none;
-            margin-left:25px;
-            font-weight:bold;
-        }
-
-        .contenedor{
-            width:95%;
-            margin:30px auto;
-        }
-
-        .titulo{
-            margin-bottom:25px;
-        }
-
-        .titulo h1{
-            color:#0d47a1;
-        }
-
-        .cards{
-            display:flex;
-            gap:20px;
-            margin-bottom:30px;
-        }
-
-        .card{
-            flex:1;
-            background:white;
-            border-radius:15px;
-            padding:25px;
-            text-align:center;
-            box-shadow:0 8px 20px rgba(0,0,0,.1);
-        }
-
-        .card h2{
-            color:#1565c0;
-            font-size:40px;
-        }
-
-        .card p{
-            color:#666;
-            margin-top:10px;
-        }
-
-        table{
-            width:100%;
-            border-collapse:collapse;
-            background:white;
-            border-radius:12px;
-            overflow:hidden;
-            box-shadow:0 8px 20px rgba(0,0,0,.1);
-        }
-
-        th{
-            background:#1565c0;
-            color:white;
-            padding:15px;
-        }
-
-        td{
-            padding:14px;
-            border-bottom:1px solid #ddd;
-        }
-
-        tr:hover{
-            background:#f4f8ff;
-        }
-
-        .btn{
-            padding:8px 15px;
-            text-decoration:none;
-            border-radius:8px;
-            color:white;
-            font-weight:bold;
-            margin-right:8px;
-        }
-
-        .editar{
-            background:#ff9800;
-        }
-
-        .eliminar{
-            background:#e53935;
-        }
-
-        .nuevo{
-            display:inline-block;
-            margin:25px 0;
-            background:#1565c0;
-            color:white;
-            text-decoration:none;
-            padding:12px 25px;
-            border-radius:10px;
-            font-weight:bold;
-        }
-
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
 </head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <body>
 
 <%@ include file="menu.jsp" %>
 
-<header class="navbar">
-
-    <h2>SELECTO</h2>
-
-    <nav>
-
-        <a href="index.jsp">Inicio</a>
-        <a href="#">Candidatos</a>
-        <a href="#">Vacantes</a>
-        <a href="#">Reportes</a>
-
-    </nav>
-
-</header>
 
 <div class="contenedor">
 
     <div class="titulo">
 
-        <h1>Panel de Administración</h1>
+        <h1>Gestión de Candidatos</h1>
 
-        <p>Gestión de candidatos registrados</p>
+        <p>Listado de candidatos registrados en SELECTO</p>
 
     </div>
+
+
+    <!-- Estadísticas -->
 
     <div class="cards">
 
         <div class="card">
-            <h2><%= request.getAttribute("totalCandidatos") %></h2>
-            <p>Candidatos</p>
+
+            <h2>
+                <%= request.getAttribute("totalCandidatos") %>
+            </h2>
+
+            <p>Candidatos registrados</p>
+
         </div>
 
-        <div class="card">
-            <h2>0</h2>
-            <p>Vacantes</p>
-        </div>
 
         <div class="card">
-            <h2><%= request.getAttribute("totalEmpresas") %></h2>
-            <p>Empresas</p>
+
+            <h2>
+                <%= request.getAttribute("totalEmpresas") %>
+            </h2>
+
+            <p>Empresas registradas</p>
+
         </div>
 
     </div>
 
-        <a href="index.jsp" class="nuevo">+ Registrar nuevo candidato</a>
 
-        <table>
+    <!-- Registrar candidato -->
 
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Acciones</th>
-            </tr>
+    <a href="index.jsp" class="nuevo">
 
-            <%
-                List<String[]> candidatos =
-                        (List<String[]>) request.getAttribute("candidatos");
+        + Registrar nuevo candidato
 
-                if (candidatos != null) {
+    </a>
 
-                    for (String[] candidato : candidatos) {
-            %>
 
-            <tr>
+    <br><br>
 
-                <td><%= candidato[0] %></td>
 
-                <td><%= candidato[1] %></td>
+    <!-- Tabla de candidatos -->
 
-                <td><%= candidato[2] %></td>
+    <table>
 
-                <td>
+        <thead>
 
-                    <a class="btn editar"
-                       href="editar.jsp?id=<%= candidato[0] %>">
-                        Editar
-                    </a>
+        <tr>
 
-                    <a class="btn eliminar"
-                       href="EliminarServlet?id=<%= candidato[0] %>"
-                       onclick="return confirm('¿Deseas eliminar este candidato?');">
-                        Eliminar
-                    </a>
+            <th>ID</th>
 
-                </td>
+            <th>Nombre</th>
 
-            </tr>
+            <th>Correo</th>
 
-            <%
-                    }
+            <th>Acciones</th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        <%
+
+            List<String[]> candidatos =
+                    (List<String[]>) request.getAttribute("candidatos");
+
+            if (candidatos != null && !candidatos.isEmpty()) {
+
+                for (String[] candidato : candidatos) {
+
+        %>
+
+        <tr>
+
+            <td>
+                <%= candidato[0] %>
+            </td>
+
+            <td>
+                <%= candidato[1] %>
+            </td>
+
+            <td>
+                <%= candidato[2] %>
+            </td>
+
+            <td>
+
+                <a class="btn editar"
+                   href="editar.jsp?id=<%= candidato[0] %>">
+
+                    Editar
+
+                </a>
+
+
+                <a class="btn eliminar"
+                   href="EliminarServlet?id=<%= candidato[0] %>"
+                   onclick="return confirm('¿Deseas eliminar este candidato?');">
+
+                    Eliminar
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        <%
+
                 }
-            %>
 
-        </table>
+            } else {
 
-        </div>
+        %>
 
-        <footer>
+        <tr>
 
-            © 2026 SELECTO | Sistema de Selección de Personal
+            <td colspan="4" class="text-center">
 
-        </footer>
+                No hay candidatos registrados.
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+            </td>
 
-        <%@ include file="footer.jsp" %>
+        </tr>
 
-        </body>
+        <%
 
-        </html>
+            }
+
+        %>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<%@ include file="footer.jsp" %>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

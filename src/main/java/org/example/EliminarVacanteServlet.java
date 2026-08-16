@@ -24,7 +24,6 @@ public class EliminarVacanteServlet extends HttpServlet {
         }
 
         String rol = (String) session.getAttribute("rol");
-
         String id = request.getParameter("id");
 
         if (id == null || id.isEmpty()) {
@@ -35,21 +34,18 @@ public class EliminarVacanteServlet extends HttpServlet {
         try (Connection con = ConexionBD.conectar()) {
 
             String sql;
-
             PreparedStatement ps;
 
             // ADMIN puede eliminar cualquier vacante
-            if ("ADMIN".equals(rol)) {
+            if ("ADMIN".equalsIgnoreCase(rol)) {
 
                 sql = "DELETE FROM vacantes WHERE id = ?";
 
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, Integer.parseInt(id));
 
-            }
-
-            // EMPRESA solo puede eliminar sus propias vacantes
-            else if ("EMPRESA".equals(rol)) {
+                // EMPRESA solo puede eliminar sus propias vacantes
+            } else if ("EMPRESA".equalsIgnoreCase(rol)) {
 
                 Integer empresaId =
                         (Integer) session.getAttribute("empresa_id");
@@ -67,10 +63,9 @@ public class EliminarVacanteServlet extends HttpServlet {
                 ps.setInt(1, Integer.parseInt(id));
                 ps.setInt(2, empresaId);
 
-            }
+                // Otros roles no pueden eliminar
+            } else {
 
-            // Otros roles no pueden eliminar vacantes
-            else {
                 response.sendRedirect("vacantesDisponibles.jsp");
                 return;
             }
@@ -79,7 +74,12 @@ public class EliminarVacanteServlet extends HttpServlet {
 
             response.sendRedirect("ListarVacantes");
 
+        } catch (NumberFormatException e) {
+
+            response.sendRedirect("ListarVacantes");
+
         } catch (Exception e) {
+
             throw new ServletException(e);
         }
     }

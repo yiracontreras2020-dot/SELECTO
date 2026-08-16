@@ -1,7 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    // Verificar que exista una sesión
     if (session.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    // Verificar que el usuario sea ADMIN
+    String rol = (String) session.getAttribute("rol");
+
+    if (!"ADMIN".equalsIgnoreCase(rol)) {
         response.sendRedirect("login.jsp");
         return;
     }
@@ -12,11 +21,18 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Dashboard - SELECTO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="css/styles.css">
+    <title>Panel de Administración - SELECTO</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- CSS de SELECTO -->
+    <link rel="stylesheet" href="css/styles.css">
 
 </head>
 
@@ -24,27 +40,54 @@
 
 <%@ include file="menu.jsp" %>
 
-<div class="container mt-5">
 
-    <h2 class="text-center mb-4">
-        Bienvenido a SELECTO
-    </h2>
+<!-- ============================= -->
+<!-- PANEL DE ADMINISTRACIÓN -->
+<!-- ============================= -->
+
+<div class="container mt-5 mb-5">
+
+    <h1 class="text-center mb-2">
+        Panel de Administración
+    </h1>
+
+    <p class="text-center text-muted mb-5">
+        Gestión del sistema SELECTO
+    </p>
+
+
+    <!-- ============================= -->
+    <!-- PRIMERA FILA -->
+    <!-- ============================= -->
 
     <div class="row">
 
+
+        <!-- CANDIDATOS -->
+
         <div class="col-md-3 mb-4">
 
-            <div class="card shadow text-center">
+            <div class="card shadow text-center h-100">
 
                 <div class="card-body">
 
-                    <h1>👥</h1>
+                    <div style="font-size: 45px;">
+                        👥
+                    </div>
 
-                    <h4>Candidatos</h4>
+                    <h4 class="mt-3">
+                        Candidatos
+                    </h4>
+
+                    <p>
+                        Gestionar candidatos registrados.
+                    </p>
 
                     <a href="ListarCandidatos"
                        class="btn btn-primary">
-                        Ver
+
+                        Ver candidatos
+
                     </a>
 
                 </div>
@@ -53,19 +96,32 @@
 
         </div>
 
+
+        <!-- EMPRESAS -->
+
         <div class="col-md-3 mb-4">
 
-            <div class="card shadow text-center">
+            <div class="card shadow text-center h-100">
 
                 <div class="card-body">
 
-                    <h1>🏢</h1>
+                    <div style="font-size: 45px;">
+                        🏢
+                    </div>
 
-                    <h4>Empresas</h4>
+                    <h4 class="mt-3">
+                        Empresas
+                    </h4>
+
+                    <p>
+                        Gestionar empresas registradas.
+                    </p>
 
                     <a href="ListarEmpresas"
                        class="btn btn-success">
-                        Ver
+
+                        Ver empresas
+
                     </a>
 
                 </div>
@@ -74,19 +130,32 @@
 
         </div>
 
+
+        <!-- VACANTES -->
+
         <div class="col-md-3 mb-4">
 
-            <div class="card shadow text-center">
+            <div class="card shadow text-center h-100">
 
                 <div class="card-body">
 
-                    <h1>💼</h1>
+                    <div style="font-size: 45px;">
+                        💼
+                    </div>
 
-                    <h4>Vacantes</h4>
+                    <h4 class="mt-3">
+                        Vacantes
+                    </h4>
+
+                    <p>
+                        Administrar las vacantes.
+                    </p>
 
                     <a href="ListarVacantes"
                        class="btn btn-warning">
-                        Ver
+
+                        Ver vacantes
+
                     </a>
 
                 </div>
@@ -95,19 +164,75 @@
 
         </div>
 
+
+        <!-- POSTULACIONES -->
+
         <div class="col-md-3 mb-4">
 
-            <div class="card shadow text-center">
+            <div class="card shadow text-center h-100">
 
                 <div class="card-body">
 
-                    <h1>📄</h1>
+                    <div style="font-size: 45px;">
+                        📄
+                    </div>
 
-                    <h4>Postulaciones</h4>
+                    <h4 class="mt-3">
+                        Postulaciones
+                    </h4>
+
+                    <p>
+                        Consultar las postulaciones.
+                    </p>
 
                     <a href="ListarPostulaciones"
                        class="btn btn-danger">
-                        Ver
+
+                        Ver postulaciones
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- SEGUNDA FILA -->
+    <!-- ============================= -->
+
+    <div class="row justify-content-center mt-3">
+
+
+        <!-- VACANTES DISPONIBLES -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow text-center h-100">
+
+                <div class="card-body">
+
+                    <div style="font-size: 45px;">
+                        🔎
+                    </div>
+
+                    <h4 class="mt-3">
+                        Vacantes disponibles
+                    </h4>
+
+                    <p>
+                        Consultar las vacantes disponibles.
+                    </p>
+
+                    <a href="ListarVacantesDisponibles"
+                       class="btn btn-info">
+
+                        Ver disponibles
+
                     </a>
 
                 </div>
@@ -120,73 +245,14 @@
 
 </div>
 
-<header class="navbar">
 
-<h2>SELECTO</h2>
+<!-- Bootstrap JS -->
 
-<nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<a href="dashboard.jsp">Inicio</a>
-
-<a href="ListarCandidatos">Candidatos</a>
-
-<a href="ListarEmpresas">Empresas</a>
-
-<a href="ListarVacantes">Vacantes</a>
-
-<a href="ListarVacantesDisponibles">Vacantes Disponibles</a>
-
-<a href="ListarPostulaciones">Postulaciones</a>
-
-<a href="PanelEmpresa">Panel Empresa</a>
-
-<a href="login.jsp">Cerrar sesión</a>
-
-</nav>
-
-</header>
-
-<div class="contenedor">
-
-<h1>Bienvenido a SELECTO</h1>
-
-<p>Seleccione una opción del menú para administrar el sistema.</p>
-
-<div class="cards">
-
-    <a href="ListarCandidatos" class="text-decoration-none text-dark">
-        <div class="card">
-            <h2>👥</h2>
-            <p>Candidatos</p>
-        </div>
-    </a>
-
-    <a href="ListarEmpresas" class="text-decoration-none text-dark">
-        <div class="card">
-            <h2>🏢</h2>
-            <p>Empresas</p>
-        </div>
-    </a>
-
-    <a href="ListarVacantesServlet" class="text-decoration-none text-dark">
-        <div class="card">
-            <h2>💼</h2>
-            <p>Vacantes</p>
-        </div>
-    </a>
-
-    <a href="postulaciones.jsp" class="text-decoration-none text-dark">
-        <div class="card">
-            <h2>📄</h2>
-            <p>Postulaciones</p>
-        </div>
-    </a>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Footer -->
 
 <%@ include file="footer.jsp" %>
 
