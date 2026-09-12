@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
 
                     session.setAttribute("candidato_id", candidatoId);
 
-                    response.sendRedirect("ListarVacantes");
+                    response.sendRedirect("panelCandidato.jsp");
 
                     // =========================
                     // ADMINISTRADOR
