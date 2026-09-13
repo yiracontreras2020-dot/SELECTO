@@ -129,10 +129,9 @@
                 <div class="text-center mt-4">
 
                     <button
-                            type="submit"
-                            class="btn btn-primary">
-
-                        Guardar hoja de vida
+                           <a href="VerHojaVidaServlet" class="btn btn-primary">
+                               📄 Ver mi hoja de vida
+                           </a>
 
                     </button>
 
