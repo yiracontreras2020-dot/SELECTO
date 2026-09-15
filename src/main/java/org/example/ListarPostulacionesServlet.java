@@ -59,7 +59,7 @@ public class ListarPostulacionesServlet extends HttpServlet {
                 }
 
                 sql =
-                        "SELECT p.id, c.nombre, c.correo, v.titulo " +
+                        "SELECT p.id, p.candidato_id, c.nombre, c.correo, v.titulo " +
                                 "FROM postulaciones p " +
                                 "INNER JOIN candidatos c ON p.candidato_id = c.id " +
                                 "INNER JOIN vacantes v ON p.vacante_id = v.id " +

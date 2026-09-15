@@ -73,6 +73,19 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link"
+                           href="VerHojaVidaServlet">
+                            📄 Mi Hoja de Vida
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="ReportesServlet">
+                            📊 Reportes
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="PanelEmpresa">
                             📊 Panel Empresa
                         </a>

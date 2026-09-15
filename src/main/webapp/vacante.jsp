@@ -48,9 +48,7 @@
                             automáticamente de la sesión.
                         -->
 
-                        <input type="hidden"
-                               name="empresa_id"
-                               value="<%= session.getAttribute("empresa_id") %>">
+
 
 
                         <!-- TÍTULO -->

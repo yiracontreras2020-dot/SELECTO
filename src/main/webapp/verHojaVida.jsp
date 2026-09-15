@@ -82,17 +82,16 @@
 
             <div class="text-center mt-4">
 
-                <a href="hojaVida.jsp"
-                   class="btn btn-primary">
+                <a href="VerHojaVidaServlet"      class="btn btn-primary">
                     ✏️ Editar hoja de vida
                 </a>
 
-                <button onclick="window.print()"
-                        class="btn btn-success">
-                    🖨️ Imprimir / Guardar PDF
-                </button>
+                <a href="GenerarPDFServlet"
+                   class="btn btn-success">
+                    📄 Generar PDF
+                </a>
 
-            </div>
+                </div>
 
         </div>
 

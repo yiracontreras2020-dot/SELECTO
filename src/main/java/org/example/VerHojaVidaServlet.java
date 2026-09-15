@@ -20,20 +20,26 @@ public class VerHojaVidaServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Obtener la sesión actual
+        System.out.println(">>> VerHojaVidaServlet EJECUTADO");
+
         HttpSession session = request.getSession(false);
 
-        // Verificar que el candidato haya iniciado sesión
-        if (session == null ||
-                session.getAttribute("candidato_id") == null) {
-
+        if (session == null) {
+            System.out.println(">>> No existe sesión");
             response.sendRedirect("login.jsp");
             return;
         }
 
-        // Obtener el ID del candidato
-        int candidatoId =
-                (Integer) session.getAttribute("candidato_id");
+        Object candidatoObj = session.getAttribute("candidato_id");
+
+        System.out.println(">>> candidato_id: " + candidatoObj);
+
+        if (candidatoObj == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        int candidatoId = (Integer) candidatoObj;
 
         try (Connection con = ConexionBD.conectar()) {
 
@@ -44,8 +50,7 @@ public class VerHojaVidaServlet extends HttpServlet {
                             "FROM candidatos " +
                             "WHERE id = ?";
 
-            PreparedStatement ps =
-                    con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, candidatoId);
 
@@ -53,45 +58,29 @@ public class VerHojaVidaServlet extends HttpServlet {
 
             if (rs.next()) {
 
-                request.setAttribute(
-                        "id",
-                        rs.getInt("id")
-                );
+                System.out.println(">>> Candidato encontrado: "
+                        + rs.getString("nombre"));
 
-                request.setAttribute(
-                        "nombre",
-                        rs.getString("nombre")
-                );
+                request.setAttribute("nombre",
+                        rs.getString("nombre"));
 
-                request.setAttribute(
-                        "correo",
-                        rs.getString("correo")
-                );
+                request.setAttribute("correo",
+                        rs.getString("correo"));
 
-                request.setAttribute(
-                        "telefono",
-                        rs.getString("telefono")
-                );
+                request.setAttribute("telefono",
+                        rs.getString("telefono"));
 
-                request.setAttribute(
-                        "perfil_profesional",
-                        rs.getString("perfil_profesional")
-                );
+                request.setAttribute("perfil_profesional",
+                        rs.getString("perfil_profesional"));
 
-                request.setAttribute(
-                        "formacion_academica",
-                        rs.getString("formacion_academica")
-                );
+                request.setAttribute("formacion_academica",
+                        rs.getString("formacion_academica"));
 
-                request.setAttribute(
-                        "experiencia_laboral",
-                        rs.getString("experiencia_laboral")
-                );
+                request.setAttribute("experiencia_laboral",
+                        rs.getString("experiencia_laboral"));
 
-                request.setAttribute(
-                        "habilidades",
-                        rs.getString("habilidades")
-                );
+                request.setAttribute("habilidades",
+                        rs.getString("habilidades"));
 
                 request.getRequestDispatcher(
                         "verHojaVida.jsp"
@@ -99,11 +88,14 @@ public class VerHojaVidaServlet extends HttpServlet {
 
             } else {
 
+                System.out.println(">>> No se encontró el candidato");
+
                 response.sendRedirect("hojaVida.jsp");
             }
 
         } catch (Exception e) {
 
+            e.printStackTrace();
             throw new ServletException(e);
         }
     }
