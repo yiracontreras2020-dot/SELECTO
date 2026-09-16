@@ -139,6 +139,16 @@
 
     <div class="text-center mt-5">
 
+        <a href="ReporteVacantesServlet"
+           class="btn btn-primary me-2">
+            💼 Ver reporte de vacantes
+        </a>
+
+        <a href="ReportePostulacionesServlet"
+           class="btn btn-info me-2">
+            📄 Ver reporte de postulaciones
+        </a>
+
         <a href="dashboard.jsp"
            class="btn btn-secondary">
             ← Volver al panel
