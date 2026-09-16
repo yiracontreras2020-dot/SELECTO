@@ -77,7 +77,7 @@ public class GuardarHojaVidaServlet extends HttpServlet {
 
             // Volver a la hoja de vida
             response.sendRedirect(
-                    "hojaVida.jsp?guardado=ok"
+                    "VerHojaVidaServlet"
             );
 
         } catch (Exception e) {

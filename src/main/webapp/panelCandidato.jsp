@@ -70,7 +70,7 @@
                         Completa y actualiza tu información profesional.
                     </p>
 
-                    <a href="hojaVida.jsp"
+                    <a href="verHojaVida.jsp"
                        class="btn btn-primary">
 
                         Ver mi hoja de vida

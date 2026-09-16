@@ -1,6 +1,6 @@
 package org.example;
 
-import com.lowagie.text.Document;
+import com.lowagie.text .Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Font;

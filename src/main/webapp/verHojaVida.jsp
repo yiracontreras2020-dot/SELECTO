@@ -80,18 +80,30 @@
 
             <hr>
 
+            <!-- BOTONES -->
+
             <div class="text-center mt-4">
 
-                <a href="VerHojaVidaServlet"      class="btn btn-primary">
-                    ✏️ Editar hoja de vida
+                <button type="submit" class="btn btn-primary me-2">
+                    💾 Guardar datos
+                </button>
+
+                <a href="VerHojaVidaServlet"
+                   class="btn btn-info me-2">
+                    👁️ Ver hoja de vida
                 </a>
 
                 <a href="GenerarPDFServlet"
-                   class="btn btn-success">
+                   class="btn btn-success me-2">
                     📄 Generar PDF
                 </a>
 
-                </div>
+                <a href="ListarVacantes"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
+
+            </div>
 
         </div>
 

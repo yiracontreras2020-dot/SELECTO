@@ -83,7 +83,7 @@ public class VerHojaVidaServlet extends HttpServlet {
                         rs.getString("habilidades"));
 
                 request.getRequestDispatcher(
-                        "verHojaVida.jsp"
+                        "hojaVida.jsp"
                 ).forward(request, response);
 
             } else {

@@ -26,6 +26,7 @@
                 <th>Candidato</th>
                 <th>Correo</th>
                 <th>Vacante</th>
+                <th>Acciones</th>
             </tr>
 
             <%
@@ -39,9 +40,16 @@
 
             <tr>
                 <td><%= p[0] %></td>
-                <td><%= p[1] %></td>
                 <td><%= p[2] %></td>
                 <td><%= p[3] %></td>
+                <td><%= p[4] %></td>
+
+                <td>
+                    <a href="VerHojaVidaServlet?candidato_id=<%= p[1] %>"
+                       class="btn btn-primary btn-sm">
+                        📄 Ver hoja de vida
+                    </a>
+                </td>
             </tr>
 
             <%

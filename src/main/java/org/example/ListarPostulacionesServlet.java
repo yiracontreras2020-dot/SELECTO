@@ -41,7 +41,6 @@ public class ListarPostulacionesServlet extends HttpServlet {
         try (Connection con = ConexionBD.conectar()) {
 
             String sql;
-
             PreparedStatement ps;
 
             // =========================
@@ -58,12 +57,11 @@ public class ListarPostulacionesServlet extends HttpServlet {
                     return;
                 }
 
-                sql =
-                        "SELECT p.id, p.candidato_id, c.nombre, c.correo, v.titulo " +
-                                "FROM postulaciones p " +
-                                "INNER JOIN candidatos c ON p.candidato_id = c.id " +
-                                "INNER JOIN vacantes v ON p.vacante_id = v.id " +
-                                "WHERE p.candidato_id = ?";
+                sql = "SELECT p.id, p.candidato_id, c.nombre, c.correo, v.titulo " +
+                        "FROM postulaciones p " +
+                        "INNER JOIN candidatos c ON p.candidato_id = c.id " +
+                        "INNER JOIN vacantes v ON p.vacante_id = v.id " +
+                        "WHERE p.candidato_id = ?";
 
                 ps = con.prepareStatement(sql);
 
@@ -83,12 +81,11 @@ public class ListarPostulacionesServlet extends HttpServlet {
                     return;
                 }
 
-                sql =
-                        "SELECT p.id, c.nombre, c.correo, v.titulo " +
-                                "FROM postulaciones p " +
-                                "INNER JOIN candidatos c ON p.candidato_id = c.id " +
-                                "INNER JOIN vacantes v ON p.vacante_id = v.id " +
-                                "WHERE v.empresa_id = ?";
+                sql = "SELECT p.id, p.candidato_id, c.nombre, c.correo, v.titulo " +
+                        "FROM postulaciones p " +
+                        "INNER JOIN candidatos c ON p.candidato_id = c.id " +
+                        "INNER JOIN vacantes v ON p.vacante_id = v.id " +
+                        "WHERE v.empresa_id = ?";
 
                 ps = con.prepareStatement(sql);
 
@@ -100,11 +97,10 @@ public class ListarPostulacionesServlet extends HttpServlet {
 
             } else if ("ADMIN".equalsIgnoreCase(rol)) {
 
-                sql =
-                        "SELECT p.id, c.nombre, c.correo, v.titulo " +
-                                "FROM postulaciones p " +
-                                "INNER JOIN candidatos c ON p.candidato_id = c.id " +
-                                "INNER JOIN vacantes v ON p.vacante_id = v.id";
+                sql = "SELECT p.id, p.candidato_id, c.nombre, c.correo, v.titulo " +
+                        "FROM postulaciones p " +
+                        "INNER JOIN candidatos c ON p.candidato_id = c.id " +
+                        "INNER JOIN vacantes v ON p.vacante_id = v.id";
 
                 ps = con.prepareStatement(sql);
 
@@ -120,6 +116,7 @@ public class ListarPostulacionesServlet extends HttpServlet {
 
                 postulaciones.add(new String[]{
                         rs.getString("id"),
+                        rs.getString("candidato_id"),
                         rs.getString("nombre"),
                         rs.getString("correo"),
                         rs.getString("titulo")
